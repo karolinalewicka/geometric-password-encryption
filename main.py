@@ -42,25 +42,16 @@ class Validator:
     def get_letter(self, index):
         return self.order[index]
 
-    def process_points(self, points, password):  # TODO: naming
+    def process_points(self, points, password):
         output = []
         for index, p in enumerate(points):
-            # print(index, p)
             if (index + 1) in password.keys():
                 output.append([p[0], p[1] + password[index + 1]])
-                # else:
-                # output.append([p[0], p[1]])
         if len(output) == 0:
             raise RuntimeError("Wrong password given")
         return output
 
     def validate(self, text):
-        # punkt przecięcia i czy należy do prostej
-        # weź przesunięte punkty
-        # weź 2 punkty
-        # znajdź prostą
-        # sprawdź czy pozostałe są na prostej
-        # sprawdź punkt przecięcia
         words = text.split()[1:]
         identifier = words[0]
         if len(words) <= 1:
@@ -96,14 +87,11 @@ class Validator:
         translated_points = self.process_points(points, password)
         first_point = translated_points[0]
         second_point = translated_points[1]
-        # print(first_point, second_point)
         line_coefs = get_coefficients(first_point, second_point)
-        # print("coefs", line_coefs)
 
         a = line_coefs[0]
         b = line_coefs[1]
-        # sprawdz, czy sa na prostej punkty wszystkie
-        # print(a, b)
+
         points_to_check = translated_points
         for point_to_check in points_to_check:
             x = point_to_check[0]
@@ -138,10 +126,9 @@ def main():
                 print(f"{words[1]} {'Ok' if result else 'NotOk'}")
             except RuntimeError as e:
                 print("BLAD")
-    ###
-    # return
+
 
 
 if __name__ == "__main__":
     main()
-    ##
+
